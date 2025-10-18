@@ -176,7 +176,7 @@ pane.addBinding(lightParams, 'x', {
 
 const exrLoader = new EXRLoader();
 exrLoader.load(
-	"/public/hdris/alps_field_2k.exr",
+	"/hdris/alps_field_2k.exr",
 	(texture) => {
 		texture.mapping = THREE.EquirectangularReflectionMapping;
 		scene.environment = texture;
@@ -187,7 +187,7 @@ exrLoader.load(
 
 const gltfLoader = new GLTFLoader();
 gltfLoader.load(
-	"/public/models/room-mountain.glb",
+	"/models/room-mountain.glb",
 	(gltf) => {
 		const model = gltf.scene;
 
