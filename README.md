@@ -2,6 +2,12 @@
 
 A 3D interactive room visualization built with Three.js featuring a realistic pool with animated water effects and first-person camera controls.
 
+## Preview
+
+https://github.com/user-attachments/assets/1ec85464-f9fa-4bcc-84f7-0e404f42233d
+
+
+
 ## Features
 
 - **Interactive 3D Environment**: Explore a room with a pool in an immersive 3D space
@@ -101,7 +107,3 @@ The pool water features dynamic wave animation using vertex shader manipulation:
 - WASD keyboard movement
 - Mouse-based look controls using Euler angles
 - Vertical look angle clamping to prevent camera flipping
-
-## License
-
-ISC
