@@ -1,7 +1,7 @@
 {
-  "name": "room-with-pool",
+  "name": "pool-scene",
   "version": "1.0.0",
-  "description": "A room with a pool",
+  "description": "A pool scene interactive 3D visualization",
   "main": "index.js",
   "scripts": {
     "dev": "npx vite",
