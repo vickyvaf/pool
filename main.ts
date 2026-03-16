@@ -70,7 +70,7 @@ document.addEventListener('pointerlockchange', () => {
 	}
 });
 
-function onMouseMove(event) {
+function onMouseMove(event: MouseEvent) {
 	const movementX = event.movementX || 0;
 	const movementY = event.movementY || 0;
 
@@ -84,28 +84,28 @@ function onMouseMove(event) {
 	camera.quaternion.setFromEuler(euler);
 }
 
-window.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', (e: KeyboardEvent) => {
 	if (e.key === 'Escape') {
 		unlockPointer();
 	}
 });
 
 const moveSpeed = 0.05
-const keys = {
+const keys: Record<string, boolean> = {
 	w: false,
 	a: false,
 	s: false,
 	d: false
 };
 
-window.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', (e: KeyboardEvent) => {
 	const key = e.key.toLowerCase();
 	if (key in keys) {
 		keys[key] = true;
 	}
 });
 
-window.addEventListener('keyup', (e) => {
+window.addEventListener('keyup', (e: KeyboardEvent) => {
 	const key = e.key.toLowerCase();
 	if (key in keys) {
 		keys[key] = false;
@@ -165,12 +165,14 @@ const lightParams = {
 	x: sunLight.position.x,
 };
 
-pane.addBinding(lightParams, 'x', {
+const binding = (pane as any).addBinding(lightParams, 'x', {
 	min: -20,
 	max: 20,
 	step: 0.1,
 	label: 'X Position',
-}).on('change', (ev) => {
+});
+
+binding.on('change', (ev: { value: number }) => {
 	sunLight.position.x = ev.value;
 });
 
@@ -192,17 +194,19 @@ gltfLoader.load(
 		const model = gltf.scene;
 
 		model.traverse((child) => {
-			if (child.isMesh) {
-				child.castShadow = true;
-				child.receiveShadow = true;
+			if ((child as THREE.Mesh).isMesh) {
+				const mesh = child as THREE.Mesh;
+				mesh.castShadow = true;
+				mesh.receiveShadow = true;
 
-				if (child.material) {
-					child.material.shadowSide = THREE.FrontSide;
-					child.material.needsUpdate = true;
+				if (mesh.material) {
+					const material = mesh.material as THREE.MeshStandardMaterial;
+					material.shadowSide = THREE.FrontSide;
+					material.needsUpdate = true;
 				}
 
-				if (child.name === 'water_pool') {
-					child.material = new THREE.MeshStandardMaterial({
+				if (mesh.name === 'water_pool') {
+					mesh.material = new THREE.MeshStandardMaterial({
 						color: 0x0099dd,
 						metalness: 0.5,
 						roughness: 0.5,
@@ -210,13 +214,13 @@ gltfLoader.load(
 						opacity: 0.4,
 						envMapIntensity: 1.5,
 					});
-					child.receiveShadow = true;
-					child.castShadow = false;
+					mesh.receiveShadow = true;
+					mesh.castShadow = false;
 
-					child.position.y -= 0.05;
+					mesh.position.y -= 0.05;
 
-					child.userData.isWater = true;
-					child.userData.originalPositions = child.geometry.attributes.position.array.slice();
+					mesh.userData.isWater = true;
+					mesh.userData.originalPositions = (mesh.geometry.attributes.position.array as Float32Array).slice();
 				}
 			}
 		});
@@ -233,9 +237,10 @@ function animate() {
 
 	const time = performance.now() * 0.001;
 	scene.traverse((child) => {
-		if (child.userData.isWater && child.geometry.attributes.position) {
-			const positions = child.geometry.attributes.position.array;
-			const originalPositions = child.userData.originalPositions;
+		if (child.userData.isWater && (child as THREE.Mesh).geometry && (child as THREE.Mesh).geometry.attributes.position) {
+			const mesh = child as THREE.Mesh;
+			const positions = mesh.geometry.attributes.position.array as Float32Array;
+			const originalPositions = mesh.userData.originalPositions as Float32Array;
 
 			for (let i = 0; i < positions.length; i += 3) {
 				const x = originalPositions[i];
@@ -247,8 +252,8 @@ function animate() {
 					Math.sin((x + z) * 2 + time * 0.8) * 0.015;
 			}
 
-			child.geometry.attributes.position.needsUpdate = true;
-			child.geometry.computeVertexNormals();
+			mesh.geometry.attributes.position.needsUpdate = true;
+			mesh.geometry.computeVertexNormals();
 		}
 	});
 

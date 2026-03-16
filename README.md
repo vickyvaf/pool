@@ -1,4 +1,4 @@
-# Pool Scene
+# Pool
 
 A 3D interactive room visualization built with Three.js featuring a realistic pool with animated water effects and first-person camera controls.
 
@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/1ec85464-f9fa-4bcc-84f7-0e404f42233d
 
 ## Features
 
-- **Interactive 3D Environment**: Explore a pool scene in an immersive 3D space
+- **Interactive 3D Environment**: Explore a pool in an immersive 3D space
 - **First-Person Controls**: WASD movement with mouse look controls using pointer lock
 - **Animated Water**: Realistic water surface animation with wave effects
 - **Realistic Lighting**: Directional sunlight with shadow mapping and HDR environment mapping
@@ -73,7 +73,7 @@ pnpm start
 ## Project Structure
 
 ```
-pool-scene/
+pool/
 ├── public/
 │   ├── hdris/           # HDR environment maps
 │   └── models/          # 3D model files (GLTF)

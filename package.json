@@ -1,7 +1,7 @@
 {
-  "name": "pool-scene",
+  "name": "pool",
   "version": "1.0.0",
-  "description": "A pool scene interactive 3D visualization",
+  "description": "A pool interactive 3D visualization",
   "main": "index.js",
   "scripts": {
     "dev": "npx vite",
@@ -17,6 +17,9 @@
     "tweakpane": "^4.0.5"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
+    "@types/three": "^0.183.1",
+    "typescript": "^5.9.3",
     "vite": "^7.1.3"
   }
 }
